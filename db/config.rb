@@ -9,7 +9,6 @@ APP_NAME = APP_ROOT.basename.to_s
 DB_PATH  = APP_ROOT.join('db', APP_NAME + ".db").to_s
 ActiveRecord::Base.logger = Logger.new(STDOUT) if ENV['DEBUG']
 
-
 # Basic Setup
 
 # Auto-load all models
@@ -17,4 +16,4 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each { |file| require file }
 
 # Establish database connection
 ActiveRecord::Base.establish_connection :adapter  => 'sqlite3',
-                                        :database => DB_PATH
+                                        :database => "#{File.dirname(__FILE__)}/../db/week-3-assessment-yellowpages.sqlite3"

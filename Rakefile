@@ -1,18 +1,16 @@
 require 'rake'
 require 'rspec/core/rake_task'
-
-require_relative 'config/application'
+require_relative 'db/config'
+require_relative 'lib/yellowpages_importer'
 
 desc "create the database"
 task "db:create" do
-  puts "Creating file #{DB_PATH} if it doesn't exist..."
-  touch DB_PATH
+  touch 'db/week-3-assessment-yellowpages.sqlite3'
 end
 
 desc "drop the database"
 task "db:drop" do
-  puts "Deleting #{DB_PATH}..."
-  rm_f DB_PATH
+  rm_f 'db/week-3-assessment-yellowpages.sqlite3'
 end
 
 desc "migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
@@ -26,7 +24,7 @@ end
 
 desc "populate the test database with sample data"
 task "db:seed" do
-  require APP_ROOT.join('db', 'seeds.rb')
+  YellowpagesImporter.import("db/data/seeds.csv")
 end
 
 desc 'Retrieves the current schema version number'
